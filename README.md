@@ -9,8 +9,11 @@ Please run this command in order to install required packed
 
 # File structure
 [data](data/) To store csv data file
+
 [images](images/) Storing images
+
 [logs](logs/) Storing log of test
+
 [models](models/) Storing models
 
 # To training and test model
