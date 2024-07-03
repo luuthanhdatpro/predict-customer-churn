@@ -7,7 +7,7 @@ Project: Churn Dectection
 # import libraries
 import os
 import logging
-from sklearn.metrics import classification_report
+from sklearn.metrics import RocCurveDisplay, classification_report
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
@@ -292,6 +292,16 @@ def train_models(x_train, x_test, y_train, y_test):
         cv_rfc,
         x_train,
         f'{RESULTS_FOLDER}/feature_importance.png')
+    lrc_plot = RocCurveDisplay.from_estimator(
+        lrc, x_test, y_test)
+    plt.savefig(f'{RESULTS_FOLDER}/lr_roc_result.png')
+
+    plt.figure(figsize=(20, 5))
+    ax = plt.gca()
+    RocCurveDisplay.from_estimator(cv_rfc.best_estimator_, x_test, y_test)
+    lrc_plot.plot(ax=ax)
+    plt.savefig(f'{RESULTS_FOLDER}/lr_rf_roc_result.png')
+
     
 
 if __name__ == "__main__":
